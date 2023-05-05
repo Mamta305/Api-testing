@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 public class playloadconverting {
  public static String generateplayloadstring(String filename) throws IOException{
-	 String filepath =System.getProperty("user.dir")+"src/main/java/resource/" + filename;
+	 String filepath =System.getProperty("user.dir")+"/src/test/resources/" + filename;
 			 System.err.println(filepath);
 	 return new String(Files.readAllBytes(Paths.get(filepath)));		 
  }
