@@ -7,7 +7,11 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features="src/test/java/GITHUB_API",
-glue= "stepDefenition")
+glue= "stepDefenition",
+plugin = {"html:test-output/Abhay.html","json:test-output/Abhay.json"}
+		)
+
+
 public class TestRunner {
       
 }
