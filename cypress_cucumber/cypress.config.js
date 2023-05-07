@@ -16,11 +16,11 @@ module.exports = defineConfig({
     // for bdd cucumber
     specPattern:'cypress/UAT/features/*.{js,feature}',
     baseUrl:"https://api.github.com",
-    // env:{
-    //   orangehrm:"https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
-    //   rahulsh:"https://rahulshettyacademy.com/",
+    env:{
+      "GITHUB_TOKEN": "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",
 
-    // }
+
+    }
   },
   chromeWebSecurity:false
 });
