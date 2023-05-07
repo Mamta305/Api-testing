@@ -14,10 +14,10 @@ Given Verify the public repos
 When For getting public repo for a user  and pass the access token
 Then successfully executed with  the status 200
 
-# Scenario: Creating the repo
-# Given Create the repo first 
-# When for creating the repo  and pass access token
-# Then successfully executed with status of 201
+Scenario: Creating the repo
+Given Create the repo first 
+When for creating the repo  and pass access token
+Then successfully executed with status of 201
 
 Scenario: Create and update the file content
 Given create the file

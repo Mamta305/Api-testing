@@ -29,6 +29,7 @@ Then('successfully executed with  status 200',()=>{
         expect(response.body).to.be.an("array");
       });
 })
+//tc-08
 When('Getting the repo language and pass the access token',()=>{
     cy.request({
         method: 'GET',
@@ -45,7 +46,7 @@ Then('sucessfully executed with the status 200',()=>{
         expect(response.status).to.equal(200);
       });
     })
-
+//tc-09
     Given('Verify the public repos',()=>{
 //for getting access token
 
@@ -68,7 +69,7 @@ Then('sucessfully executed with the status 200',()=>{
           });
     })
 
-
+//tc-10
 Given('Create the repo first',()=>{
     //for getting access token
     
@@ -135,6 +136,7 @@ Given('create the file',()=>{
 
               
         })
+        //tc-11
 
         Given('for delete a file',()=>{
             //for getting access token
@@ -167,10 +169,7 @@ Given('create the file',()=>{
                         // expect(response.body).to.be.an("array");
                       });
                 })
-                
-
-
-
+                //tc-12
                 Given('for listing repo tags',()=>{
                     //for getting access token
                     
