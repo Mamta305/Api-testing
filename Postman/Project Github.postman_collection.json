@@ -1,0 +1,743 @@
+{
+	"info": {
+		"_postman_id": "218c7dff-0df3-4231-951c-e2b9246b51be",
+		"name": "Project Github",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27092875",
+		"_collection_link": "https://bold-space-689972.postman.co/workspace/New-Team-Workspace~d0e624f7-5064-45dd-a1c8-545c787b7b83/collection/27092875-218c7dff-0df3-4231-951c-e2b9246b51be?action=share&creator=27092875&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Create an Repository ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.environment.set(\"owner\", pm.response.json().owner.login);\r",
+							"\r",
+							"pm.environment.set(\"repo\", pm.response.json().name);\r",
+							"\r",
+							"pm.environment.set(\"username\", pm.response.json().owner.login);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Hello-World1dfdf2\",\r\n    \"description\":\"This is your first repo!\",\r\n    \"homepage\":\"https://github.com\",\r\n    \"private\":false,\r\n    \"is_template\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrlGithub}}/user/repos",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"user",
+						"repos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"New-NameOf-Masai-Repo\",\r\n    \"description\":\"This is the new description from Postman\",\r\n    \"private\":false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create or Update an File in Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"sha\", pm.response.json().content.sha);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\":\"This is the created file on Postman\",\r\n    \"content\":\"TXkgbmFtZSBpcyBQcmF0aWJoYXYgCg==\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/contents/{{path}}",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"contents",
+						"{{path}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fork an Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Forked-Masai-Repo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/forks",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"forks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a File in Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\":\"Deleting a File\",\r\n    \"sha\":\"{{sha}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/contents/{{path}}",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"contents",
+						"{{path}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of Forks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/forks",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"forks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Repository Language",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/languages",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"languages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Repository Tags",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/tags",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Repository Topics ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/topics",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replace all Repository Topics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"names\":[\"octocat\",\"atom\",\"electron\",\"api\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/topics",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Public Repositories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repositories",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repositories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Repositories for a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/users/{{username}}/repos",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"users",
+						"{{username}}",
+						"repos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Autolink Reference for a Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"autolink_id\", pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"key_prefix\": \"MASAI-\",\r\n  \"url_template\": \"https://example.com/MASAI?query=<num>\",\r\n  \"is_alphanumeric\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/autolinks",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"autolinks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Autolink Reference of a Repository ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/autolinks/{{autolink_id}}",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"autolinks",
+						"{{autolink_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Autolink Reference from a Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}/autolinks/{{autolink_id}}",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}",
+						"autolinks",
+						"{{autolink_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenGithub}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrlGithub}}/repos/{{owner}}/{{repo}}",
+					"host": [
+						"{{BaseUrlGithub}}"
+					],
+					"path": [
+						"repos",
+						"{{owner}}",
+						"{{repo}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
